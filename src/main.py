@@ -78,6 +78,16 @@ class GameView(arcade.View):
         self.esc_held = 0.0
         self._game_over = False
 
+        self._score_text = arcade.Text("Score: 0", 10, SCREEN_HEIGHT - 30, arcade.color.WHITE, 16)
+        self._game_over_text = arcade.Text(
+            "GAME OVER", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 15,
+            arcade.color.RED, 36, anchor_x="center", anchor_y="center", bold=True,
+        )
+        self._game_over_hint = arcade.Text(
+            "Score: 0  |  ESC to quit", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 25,
+            arcade.color.WHITE, 16, anchor_x="center", anchor_y="center",
+        )
+
     def on_show_view(self):
         arcade.set_background_color((10, 10, 20))
 
@@ -263,21 +273,15 @@ class GameView(arcade.View):
         # Player
         arcade.draw_circle_filled(self.player_x, self.player_y, PLAYER_RADIUS, PLAYER_COLOR)
 
-        # HUD
-        arcade.draw_text(f"Score: {self.score}", 10, SCREEN_HEIGHT - 30, arcade.color.WHITE, 16)
+        self._score_text.text = f"Score: {self.score}"
+        self._score_text.draw()
 
         if self._game_over:
             overlay = arcade.XYWH(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 400, 120)
             arcade.draw_rect_filled(overlay, (0, 0, 0, 180))
-            arcade.draw_text(
-                "GAME OVER", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 15,
-                arcade.color.RED, 36, anchor_x="center", anchor_y="center", bold=True,
-            )
-            arcade.draw_text(
-                f"Score: {self.score}  |  ESC to quit",
-                SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 25,
-                arcade.color.WHITE, 16, anchor_x="center", anchor_y="center",
-            )
+            self._game_over_text.draw()
+            self._game_over_hint.text = f"Score: {self.score}  |  ESC to quit"
+            self._game_over_hint.draw()
 
         if self.esc_held > 0:
             bar_w = 200 * (self.esc_held / ESC_HOLD_DURATION)
