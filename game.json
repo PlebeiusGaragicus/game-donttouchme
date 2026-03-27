@@ -1,0 +1,7 @@
+{
+  "name": "Don't Touch Me",
+  "entry": "python src/main.py",
+  "players": [1],
+  "cover_art": "assets/cover.png",
+  "theme_song": "assets/theme.ogg"
+}
