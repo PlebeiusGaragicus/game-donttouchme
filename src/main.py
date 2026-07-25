@@ -133,14 +133,16 @@ class GameView(arcade.View):
             self.esc_held = 0.0
 
     def on_update(self, delta_time):
-        if self._game_over:
-            return
-
+        # ESC first: it is the only way out of the game-over screen, which is
+        # exactly what that screen tells the player to press.
         if self.esc_pressed:
             self.esc_held += delta_time
             if self.esc_held >= ESC_HOLD_DURATION:
                 self.window.close()
                 return
+
+        if self._game_over:
+            return
 
         self._update_player(delta_time)
         self._update_shooting(delta_time)

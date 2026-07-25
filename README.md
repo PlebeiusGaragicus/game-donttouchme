@@ -37,3 +37,14 @@ Set `LANDUS_FULLSCREEN=1` for fullscreen mode; the launcher always sets it.
 
 No cover art or theme song yet, so `game.json` declares neither and the launcher
 draws a procedural cover. Add the file and the manifest key together.
+
+## Automated tests
+
+```bash
+.venv/bin/python tests/test_playthrough.py   # real GameView, headless invariants
+.venv/bin/python tests/test_screens.py       # renders each state to tests/screenshots/
+```
+
+`tests/harness.py` uses arcade's headless mode (EGL) where available — the
+Debian cabinet — and falls back to a real window on macOS. Screenshots come from
+the real framebuffer; open them and look. These check correctness only.
