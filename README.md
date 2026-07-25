@@ -25,8 +25,15 @@ Diagonal shooting: press two arrow keys simultaneously.
 ## Run standalone
 
 ```bash
-pip install -r requirements.txt
-python src/main.py
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python src/main.py
 ```
 
-Set `LANDUS_FULLSCREEN=1` for fullscreen mode.
+Under Landus this `.venv` is provisioned by the parent repo's `./setup`, and the
+launcher runs `.venv/bin/python` from here — each game has its own environment.
+
+Set `LANDUS_FULLSCREEN=1` for fullscreen mode; the launcher always sets it.
+
+No cover art or theme song yet, so `game.json` declares neither and the launcher
+draws a procedural cover. Add the file and the manifest key together.
